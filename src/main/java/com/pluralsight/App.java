@@ -1,7 +1,9 @@
 package com.pluralsight;
 
+import com.mysql.cj.protocol.Resultset;
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -33,7 +35,7 @@ public class App {
                 Search Options
                 1) First Name
                 2) Last Name
-                3) Full Name
+                3) Movies by Actor
                 4) Exit
                 """);
 
@@ -45,8 +47,12 @@ public class App {
                     case 1:
                         searchByFirstName(basicDataSource);
                         break;
-//                    case 2:
-//                        searchByLastName(basicDataSource);
+                    case 2:
+                        searchByLastName(basicDataSource);
+                        break;
+                    case 3:
+                        moviesByFullName(basicDataSource);
+                        break;
                     case 4:
                         System.out.println("Goodbye!");
                         System.exit(0);
@@ -65,8 +71,8 @@ public class App {
     public static void searchByFirstName(BasicDataSource basicDataSource){
 
         //prompt for user input
-        System.out.println("Enter an actor's first name: ");
-        String firstName = scanner.nextLine();
+        System.out.print("Enter an actor's first name: ");
+        String firstName = scanner.nextLine().trim();
 
         //create query for first names
         String sql = """
@@ -90,7 +96,7 @@ public class App {
 
             //this works the same as clicking run on SQL workbench
             try( ResultSet results = preparedStatement.executeQuery()){
-                if(!results.isBeforeFirst()){
+                if(!results.isBeforeFirst()){//this method checks if cursor is currently positioned BEFORE the first row of the result set
                     System.out.println("No actors found with that first name");
                     return;
                 }//NOTE: we don't need a catch statement because it's nested inside another try/catch statement
@@ -101,6 +107,99 @@ public class App {
             System.out.println("Could not retrieve data");
             System.exit(1);
         }
+
+    }
+
+    public static void searchByLastName(BasicDataSource basicDataSource){
+
+        //prompt for user input
+        //create the query for last names
+        //create try/catch
+        //get connection from pool
+        //call the query with prepared statement
+        //set the name for the ? value
+        //created nested try/catch that runs resultSet
+        System.out.print("Enter an actor's last name: ");
+        String lastName = scanner.nextLine().trim();
+
+        String sql = """
+                SELECT
+                    first_name,
+                    last_name
+                FROM
+                    actor
+                WHERE
+                    last_name = ?
+                """;
+        try(
+                Connection connection = basicDataSource.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ){
+
+            preparedStatement.setString(1, lastName);
+
+            try(ResultSet results = preparedStatement.executeQuery()){
+                if(!results.isBeforeFirst()){//this method checks if cursor is currently positioned BEFORE the first row of the result set
+                    System.out.println("No actors found with that last name");
+                    return;
+                }
+                printResults(results);
+            }
+
+        }catch(SQLException e){
+            System.out.println("Could not retrieve data");
+            System.exit(1);
+        }
+
+    }
+
+    public static void moviesByFullName(BasicDataSource basicDataSource){
+
+        //prompt for user input
+        //create the query for last names
+        //create try/catch
+        //get connection from pool
+        //call the query with prepared statement
+        //set the name for the ? value
+        //created nested try/catch that runs resultSet
+        System.out.print("Enter the actors first name: ");
+        String firstName = scanner.nextLine().trim();
+        System.out.print("Enter the actors last name: ");
+        String lastName = scanner.nextLine().trim();
+
+        String sql = """
+                SELECT
+                    A.first_name,
+                    A.last_name,
+                    F.title
+                FROM
+                    film F
+                    JOIN film_actor FA ON (F.film_id = FA.actor_id)
+                    JOIN actor A ON (FA.film_id = A.actor_id)
+                WHERE
+                    A.first_name = ? AND A.last_name = ?
+                """;
+
+        try(
+                Connection connection = basicDataSource.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                ){
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+
+            try(ResultSet results = preparedStatement.executeQuery()){
+                if(!results.isBeforeFirst()){//this method checks if cursor is currently positioned BEFORE the first row of the result set
+                    System.out.println("No movies found with that actor");
+                    return;
+                }
+                printResults(results);
+            }
+
+        }catch(SQLException e){
+            System.out.println("Could not retrieve data");
+        }
+
 
     }
     //this method will be used in the display methods to print the results to the screen
