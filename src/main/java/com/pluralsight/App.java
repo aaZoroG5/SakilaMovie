@@ -68,6 +68,7 @@ public class App {
 
     }
 
+    public static void displayAll()
     public static void searchByFirstName(BasicDataSource basicDataSource){
 
         //prompt for user input
