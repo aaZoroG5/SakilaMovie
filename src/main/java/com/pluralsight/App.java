@@ -3,8 +3,12 @@ package com.pluralsight;
 import com.mysql.cj.protocol.Resultset;
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import com.pluralsight.DAO.ActorDAO;
+import com.pluralsight.models.Actor;
+
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -30,13 +34,17 @@ public class App {
             basicDataSource.setUsername(username);
             basicDataSource.setPassword(password);
 
+            //create actor DAO object and pass the basic data source
+            ActorDAO actorDAO = new ActorDAO(basicDataSource);
+
             while(true){
                 System.out.println("""
                 Search Options
                 1) First Name
                 2) Last Name
                 3) Movies by Actor
-                4) Exit
+                4) Display All Actors
+                5) Exit
                 """);
 
                 System.out.print("Choose an option: ");
@@ -54,6 +62,9 @@ public class App {
                         moviesByFullName(basicDataSource);
                         break;
                     case 4:
+                        displayAllActors(actorDAO);
+                        break;
+                    case 5:
                         System.out.println("Goodbye!");
                         System.exit(0);
                     default:
@@ -68,7 +79,12 @@ public class App {
 
     }
 
-    public static void displayAll()
+    //this method uses the product DAO to display all actors
+    public static void displayAllActors(ActorDAO actorDAO){
+        ArrayList<Actor> actors = actorDAO.getAllActors();
+        actors.forEach(System.out::println);
+    }
+
     public static void searchByFirstName(BasicDataSource basicDataSource){
 
         //prompt for user input

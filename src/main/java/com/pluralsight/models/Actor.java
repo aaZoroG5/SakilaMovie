@@ -14,6 +14,11 @@ public class Actor {
         this.lastName = lastName;
     }
 
+    public Actor(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     //toString to print out actor details
     @Override
     public String toString() {

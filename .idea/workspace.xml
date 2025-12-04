@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f814403a-d6d0-4a04-8e30-a73992f7ae5a" name="Changes" comment="added moviesByFullName method">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Actor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Film.java" afterDir="false" />
+    <list default="true" id="f814403a-d6d0-4a04-8e30-a73992f7ae5a" name="Changes" comment="added film and actor classes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/DAO/ActorDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/DAO/FilmDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Actor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Actor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +56,7 @@
   "keyToString": {
     "Application.App.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "withProductDao",
+    "git-widget-placeholder": "withFilmDao",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
@@ -84,6 +85,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="added moviesByFullName method" />
-    <option name="LAST_COMMIT_MESSAGE" value="added moviesByFullName method" />
+    <MESSAGE value="added film and actor classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="added film and actor classes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/pluralsight/App.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
